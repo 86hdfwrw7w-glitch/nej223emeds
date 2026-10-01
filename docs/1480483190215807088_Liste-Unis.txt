@@ -1,0 +1,98 @@
+============================================================
+UNIVERSITIES BY CONTINENT AND COUNTRY
+============================================================
+
+------------------------------------------------------------
+EUROPE
+------------------------------------------------------------
+
+  ** Deutschland **
+  Ernst-Moritz-Arndt-Universität
+  Europa-Universität Flensburg
+  European School of Management and Technology
+  Frankfurt School of Finance & Management
+  Friedrich-Alexander-Universität Erlangen-Nürnberg
+  Ludwig-Maximilians-Universität München
+  Philipps-Universität Marburg
+  Ruhr-Universität Bochum
+  Universität Hamburg
+  Universität Hohenheim
+  Universität Konstanz
+  Universität Leipzig
+  Universität Münster
+  WHU Otto Beisheim School of Management
+
+  ** Vereinigtes Königreich (UK) **
+  City St. George's, University of London
+  Edinburgh Napier University
+  King's College
+  Kingston University London
+  London Metropolitan University
+  Middlesex University
+  Oxford Brookes University
+  Regent's University
+  University College London
+  University of Aberdeen
+  University of Bath
+  University of Birmingham
+  * University of Cambridge
+  University of Chichester
+  University of East London
+  University of Essex
+  University of Hull
+  University of Liverpool
+  University of Nottingham
+  * University of Oxford
+  University of Southampton
+  University of St. Andrews
+  University of Sussex
+  University of Westminster
+  University of York
+
+------------------------------------------------------------
+NORDAMERIKA
+------------------------------------------------------------
+
+  ** USA **
+  Boston University
+  Brooklyn College
+  California State University, Chico
+  California State University, East Bay
+  California State University, Fullerton
+  California State University, Los Angeles
+  California State University, Monterey Bay
+  California State University, San Bernadino
+  Columbia University, Columbia College
+  Cornell University, Johnson Graduate School of Business
+  Fairleigh Dickinson University
+  Fitchburg State University
+  Fordham University
+  Georgetown University
+  Georgia Institute of Technology
+  * Harvard University
+  Hawaii Pacific University
+  * Massachusetts Institute of Technology, Cambridge
+  Michigan State University
+  New York University, Stern School of Business
+  San Diego State University
+  San Francisco State University
+  Stanford University
+  Syracuse University
+  Texas State University, Round Rock
+  Tufts University
+  University of California Berkeley
+  University of California Davis
+  University of California Los Angeles
+  University of California Riverside
+  University of California San Diego
+  University of California Santa Barbara
+  University of Chicago, Booth School of Business
+  University of La Verne
+  University of Massachusetts Boston
+  University of Miami
+  University of Notre Dame
+  University of Pennsylvania
+  University of San Diego
+  University of Utah
+
+============================================================

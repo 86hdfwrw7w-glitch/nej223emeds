@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#1a3a5c">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="ManEcon">
+<title>Managerial Economics – Klausur-App</title>
+
+<link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxODAgMTgwIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiMxYTNhNWMiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMyNTYzYTgiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMTgwIiBoZWlnaHQ9IjE4MCIgcng9IjM2IiBmaWxsPSJ1cmwoI2cpIi8+PHRleHQgeD0iOTAiIHk9IjExMCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjcyIiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0iI2ZmZiIgdGV4dC1hbmNob3I9Im1pZGRsZSI+TUU8L3RleHQ+PC9zdmc+">
+
+<link rel="manifest" href='data:application/json;base64,ewogICJuYW1lIjogIk1hbmFnZXJpYWwgRWNvbm9taWNzIiwKICAic2hvcnRfbmFtZSI6ICJNYW5FY29uIiwKICAic3RhcnRfdXJsIjogIi4iLAogICJkaXNwbGF5IjogInN0YW5kYWxvbmUiLAogICJiYWNrZ3JvdW5kX2NvbG9yIjogIiMxYTNhNWMiLAogICJ0aGVtZV9jb2xvciI6ICIjMWEzYTVjIiwKICAib3JpZW50YXRpb24iOiAicG9ydHJhaXQiLAogICJpY29ucyI6IFtdCn0='>
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: linear-gradient(135deg, #1a3a5c 0%, #2563a8 100%);
+    min-height: 100vh;
+    min-height: 100dvh;
+    color: #1a3a5c;
+    padding: env(safe-area-inset-top, 12px) 12px env(safe-area-inset-bottom, 12px) 12px;
+    overflow-x: hidden;
+  }
+  .app { max-width: 820px; margin: 0 auto; }
+  header { text-align: center; color: white; margin-bottom: 16px; padding-top: 4px; }
+  header h1 { font-size: 22px; font-weight: 700; margin-bottom: 2px; }
+  header p { font-size: 12px; opacity: 0.9; }
+
+  .stats { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; margin-bottom: 10px; }
+  .stat { background: rgba(255,255,255,0.15); backdrop-filter: blur(10px);
+          padding: 8px 4px; border-radius: 10px; text-align: center; color: white; }
+  .stat-value { font-size: 18px; font-weight: 700; display: block; }
+  .stat-label { font-size: 10px; opacity: 0.85; margin-top: 2px; }
+
+  .progress { background: rgba(255,255,255,0.2); border-radius: 10px; height: 6px;
+              overflow: hidden; margin-bottom: 14px; }
+  .progress-fill { background: linear-gradient(90deg, #16a34a, #f59e0b); height: 100%;
+                   transition: width 0.4s ease; width: 0%; }
+
+  .mode-toggle { display: flex; gap: 5px; justify-content: center;
+                 margin-bottom: 12px; flex-wrap: wrap; }
+  .mode-btn { background: rgba(255,255,255,0.15); color: white;
+              border: 1px solid rgba(255,255,255,0.3);
+              padding: 6px 12px; border-radius: 16px; cursor: pointer;
+              font-size: 12px; transition: all 0.2s ease; }
+  .mode-btn.active { background: white; color: #1a3a5c; font-weight: 600; }
+
+  .card-wrapper { margin-bottom: 12px; }
+  .card {
+    background: white; border-radius: 18px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+    min-height: 320px; padding: 22px 20px;
+    display: flex; flex-direction: column; cursor: pointer;
+    animation: slideIn 0.4s ease;
+  }
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .card-header { display: flex; justify-content: space-between; align-items: center;
+                 margin-bottom: 14px; padding-bottom: 10px; border-bottom: 2px solid #f1f5f9; }
+  .unit-badge { background: linear-gradient(135deg, #1a3a5c, #2563a8); color: white;
+                padding: 4px 10px; border-radius: 20px; font-size: 10px;
+                font-weight: 600; letter-spacing: 0.3px; }
+  .difficulty { font-size: 11px; color: #94a3b8; }
+
+  .card-content { flex: 1; display: flex; align-items: center; justify-content: center;
+                  flex-direction: column; text-align: center; padding: 14px 0; }
+  .question { font-size: 19px; font-weight: 600; line-height: 1.4; color: #1a3a5c; }
+  .answer { font-size: 14px; line-height: 1.65; color: #334155; text-align: left; width: 100%; }
+  .answer strong { color: #1a3a5c; }
+  .answer .formula { background: #f1f5f9; border-left: 4px solid #2563a8;
+                     padding: 10px 12px; margin: 8px 0; font-family: "Courier New", monospace;
+                     font-weight: 600; color: #1a3a5c; border-radius: 6px; font-size: 13px; }
+  .answer ul, .answer ol { margin: 6px 0 6px 18px; }
+  .answer li { margin-bottom: 3px; }
+  .hint { margin-top: 14px; text-align: center; color: #94a3b8; font-size: 11px; font-style: italic; }
+
+  /* Deep Dive */
+  .btn-deepdive {
+    width: 100%;
+    background: linear-gradient(135deg, #0891b2, #0e7490);
+    color: white; border: none;
+    padding: 13px; border-radius: 12px;
+    font-weight: 600; font-size: 13px;
+    cursor: pointer; margin-top: 10px;
+    box-shadow: 0 4px 12px rgba(8,145,178,0.3);
+    transition: all 0.2s ease;
+  }
+  .btn-deepdive:active { transform: scale(0.98); }
+  .btn-deepdive.open { background: linear-gradient(135deg, #64748b, #475569); }
+
+  .deepdive-panel {
+    background: linear-gradient(135deg, #ecfeff, #f0f9ff);
+    border: 2px solid #0891b2;
+    border-radius: 14px;
+    padding: 16px 18px;
+    margin-top: 10px;
+    animation: slideDown 0.25s ease;
+    font-size: 13px;
+    line-height: 1.7;
+    color: #334155;
+  }
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-8px); max-height: 0; }
+    to   { opacity: 1; transform: translateY(0); max-height: 800px; }
+  }
+  .deepdive-panel h4 {
+    color: #0891b2; font-size: 11px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 10px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .deepdive-panel strong { color: #1a3a5c; }
+
+  .flip-btn { background: #1a3a5c; color: white; border: none;
+              padding: 15px; border-radius: 12px; width: 100%;
+              cursor: pointer; font-weight: 600; font-size: 15px;
+              margin-top: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+  .flip-btn:active { background: #2563a8; transform: scale(0.98); }
+
+  .controls { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-top: 10px; }
+  .btn { border: none; padding: 14px 6px; border-radius: 12px;
+         font-weight: 600; cursor: pointer; color: white;
+         font-size: 12px; box-shadow: 0 3px 10px rgba(0,0,0,0.15); }
+  .btn:active { transform: scale(0.96); }
+  .btn-again { background: #dc2626; }
+  .btn-hard  { background: #f59e0b; }
+  .btn-good  { background: #16a34a; }
+  .btn-easy  { background: #2563a8; }
+  .btn-sub { font-size: 10px; font-weight: 400; display: block; opacity: 0.9; margin-top: 2px; }
+
+  .done-screen { background: white; border-radius: 20px; padding: 40px 24px;
+                 text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+  .done-screen h2 { font-size: 28px; margin-bottom: 10px; color: #16a34a; }
+  .done-screen p { font-size: 14px; color: #475569; margin-bottom: 16px; }
+  .done-screen .restart { background: #2563a8; color: white; border: none;
+                          padding: 12px 22px; border-radius: 12px;
+                          font-weight: 600; cursor: pointer; font-size: 14px; margin: 4px; }
+
+  .kbd-hint { text-align: center; color: white; font-size: 11px;
+              margin-top: 12px; opacity: 0.7; padding-bottom: 10px; }
+  .kbd { display: inline-block; background: rgba(255,255,255,0.25);
+         padding: 2px 5px; border-radius: 4px;
+         font-family: monospace; font-size: 10px; }
+
+  @media (max-width: 380px) {
+    .stats { grid-template-columns: repeat(3, 1fr); }
+    .question { font-size: 17px; }
+    .mode-btn { font-size: 11px; padding: 5px 10px; }
+  }
+  @media (min-width: 600px) {
+    body { padding: 20px; }
+    .card { min-height: 380px; padding: 36px 32px; }
+    .question { font-size: 22px; }
+    .answer { font-size: 16px; }
+    header h1 { font-size: 28px; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <h1>📚 Managerial Economics</h1>
+    <p>Klausur-App · 56 Karten · Deep Dive</p>
+  </header>
+
+  <div class="mode-toggle">
+    <button class="mode-btn active" data-filter="all">Alle</button>
+    <button class="mode-btn" data-filter="unit1-2">U 1–2</button>
+    <button class="mode-btn" data-filter="unit3-4">U 3–4</button>
+    <button class="mode-btn" data-filter="unit5-6">U 5–6</button>
+    <button class="mode-btn" data-filter="unit7">U 7</button>
+    <button class="mode-btn" onclick="resetProgress()" title="Fortschritt zurücksetzen" style="margin-left:auto;">↺</button>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><span class="stat-value" id="s-new">0</span><span class="stat-label">Neu</span></div>
+    <div class="stat"><span class="stat-value" id="s-learning">0</span><span class="stat-label">Lernen</span></div>
+    <div class="stat"><span class="stat-value" id="s-review">0</span><span class="stat-label">Review</span></div>
+    <div class="stat"><span class="stat-value" id="s-done">0</span><span class="stat-label">Fertig</span></div>
+    <div class="stat"><span class="stat-value" id="s-streak">0</span><span class="stat-label">Streak 🔥</span></div>
+  </div>
+
+  <div class="progress"><div class="progress-fill" id="progress-fill"></div></div>
+
+  <div id="card-area"></div>
+
+  <div class="kbd-hint">
+    <span class="kbd">Space</span> umdrehen ·
+    <span class="kbd">D</span> Deep Dive ·
+    <span class="kbd">1-4</span> Bewerten
+  </div>
+</div>
+
+<script>
+const CARDS = [
+  // UNIT 1
+  { unit: "Unit 1", group: "unit1-2", diff: "★★★",
+    q: "Was sind Opportunitätskosten?",
+    a: "Der <strong>Wert der besten aufgegebenen Alternative</strong>. Da Ressourcen knapp sind, können sie nicht gleichzeitig für mehrere Zwecke genutzt werden.<br><br><strong>Beispiel:</strong> Studium statt Vollzeitjob → entgangene Löhne sind die Opportunitätskosten.",
+    dd: "<strong>🧠 Intuition:</strong> Jede Entscheidung hat versteckte Kosten – den Nutzen der besten Alternative. Auch 'gratis' gibt es nie: Zeit, die du für X verwendest, fehlt für Y.<br><br><strong>📌 Klausur-Tipp:</strong> Nullgewinn im vollst. Wettbewerb ≠ Verlust! Alle Opportunitätskosten inkl. Unternehmerlohn sind gedeckt. Das ist effizient, nicht schlecht.<br><br><strong>🔗 Verbindung:</strong> Grundlage der ökon. Denkweise – taucht in Konsum- (U3), Produktions- (U4) und Markttheorie auf." },
+
+  { unit: "Unit 1", group: "unit1-2", diff: "★★★",
+    q: "Positive vs. Normative Analyse – Unterschied?",
+    a: "<strong>Positive Analyse:</strong> beschreibt die Welt <strong>wie sie ist</strong> – objektiv prüfbar/falsifizierbar.<br><br><strong>Normative Analyse:</strong> beschreibt die Welt <strong>wie sie sein sollte</strong> – enthält Werturteile.<br><br><strong>Bsp positiv:</strong> CO₂-Steuer erhöht Benzinpreis.<br><strong>Bsp normativ:</strong> Deutschland sollte CO₂-Steuer einführen.",
+    dd: "<strong>🧠 Intuition:</strong> Positiv = Wissenschaftler (was IST). Normativ = Politiker (was SEIN SOLL). Der Test: Ist die Aussage empirisch prüfbar?<br><br><strong>📌 Klausur-Tipp:</strong> Viele wirtschaftspolitische Debatten mischen beide. Ein 'sollte' ist normativ – Zahlen und Fakten sind positiv.<br><br><strong>🔗 Verbindung:</strong> Methodische Grundlage für alle Modelle im Kurs (ceteris paribus, empirische Tests)." },
+
+  { unit: "Unit 1", group: "unit1-2", diff: "★★",
+    q: "Induktive vs. Deduktive Methode?",
+    a: "<strong>Induktiv:</strong> Von Beobachtung → Hypothese → Theorie (vom Speziellen zum Allgemeinen).<br><br><strong>Deduktiv:</strong> Von Theorie → Hypothese → empirischer Test (vom Allgemeinen zum Speziellen).<br><br>Beide Methoden sind komplementär und werden in der Ökonomie kombiniert.",
+    dd: "<strong>🧠 Intuition:</strong> Induktiv = Detektiv (viele Beobachtungen → Muster). Deduktiv = Mathematiker (Axiom → logische Schlussfolgerung).<br><br><strong>📌 Klausur-Tipp:</strong> Ökonomische Modelle sind meist deduktiv – sie starten mit Annahmen (z.B. rationales Verhalten) und leiten Vorhersagen ab.<br><br><strong>🔗 Verbindung:</strong> Erklärt die 'ceteris paribus'-Annahme in allen Modellen – alle anderen Faktoren konstant halten." },
+
+  { unit: "Unit 1", group: "unit1-2", diff: "★★",
+    q: "Was sind die drei Produktionsfaktoren?",
+    a: "<strong>1. Land (Land):</strong> natürliche Ressourcen (Bodenschätze, Fisch, Nahrung).<br><strong>2. Arbeit (Labor):</strong> körperliche und geistige Leistung von Individuen.<br><strong>3. Kapital (Capital):</strong> Anlagen und Ausrüstung (physisches Kapital).",
+    dd: "<strong>🧠 Intuition:</strong> Die drei Zutaten für JEDE Produktion. Wichtig: Kapital = Maschinen/Gebäude, NICHT Geld! Geld ist nur ein Anspruch auf Ressourcen.<br><br><strong>📌 Klausur-Tipp:</strong> Manche Autoren ergänzen 'Entrepreneurship' als 4. Faktor. IU folgt der klassischen 3er-Einteilung.<br><br><strong>🔗 Verbindung:</strong> Direkt relevant für Produktionstheorie (U4: Isoquanten mit K und L) und Kostenanalyse." },
+
+  { unit: "Unit 1", group: "unit1-2", diff: "★★",
+    q: "Was ist das Sparparadoxon (Savings Paradox)?",
+    a: "Wenn <strong>alle</strong> Haushalte gleichzeitig sparen (weniger konsumieren), sinken Unternehmensumsätze. Unternehmen entlassen Mitarbeiter → Einkommen sinkt weiter.<br><br>Ergebnis: Trotz höherer Sparabsicht haben Haushalte am Ende <strong>weniger</strong> Vermögen.<br><br>→ Zeigt: Individuelle Rationalität ≠ kollektive Rationalität.",
+    dd: "<strong>🧠 Intuition:</strong> Was für den Einzelnen klug ist (mehr sparen), kann für das Kollektiv schädlich sein. Klassisches Keynesianisches Argument für Konjunkturprogramme.<br><br><strong>📌 Klausur-Tipp:</strong> Beispiel für 'Fallacy of Composition' – Eigenschaft des Teils gilt nicht für das Ganze.<br><br><strong>🔗 Verbindung:</strong> Gleiche Logik wie Gefangenendilemma (U6): individuelle Rationalität führt zu kollektiv schlechterem Ergebnis." },
+
+  // UNIT 2
+  { unit: "Unit 2", group: "unit1-2", diff: "★★★",
+    q: "Gesetz der Nachfrage (Law of Demand) – was besagt es?",
+    a: "<strong>Bei steigendem Preis sinkt die nachgefragte Menge</strong> (ceteris paribus). Umgekehrt: Preis sinkt → Nachfrage steigt.<br><br>→ Nachfragekurve hat <strong>negative Steigung</strong>.<br><br>Preisänderung = Bewegung entlang der Kurve.<br>Andere Faktoren = Verschiebung der Kurve.",
+    dd: "<strong>🧠 Intuition:</strong> Zwei Gründe: (1) Substitutionseffekt – Gut wird relativ teurer. (2) Einkommenseffekt – reale Kaufkraft sinkt. Beide zeigen in dieselbe Richtung bei Normalgütern.<br><br><strong>📌 Klausur-Tipp:</strong> Giffen-Güter sind die seltene Ausnahme (inferior + Einkommenseffekt überwiegt → Nachfrage steigt bei Preisstieg).<br><br><strong>🔗 Verbindung:</strong> Wird in U3 mit Indifferenzkurven grafisch hergeleitet." },
+
+  { unit: "Unit 2", group: "unit1-2", diff: "★★★",
+    q: "Wann verschiebt sich die Nachfragekurve nach RECHTS?",
+    a: "<ul><li>Einkommen steigt (bei Normalgut) / sinkt (bei inferiorem Gut)</li><li>Preis des <strong>Substituts</strong> steigt</li><li>Preis des <strong>Komplements</strong> sinkt</li><li>Stärkere Präferenzen/Werbung</li><li>Erwartung steigender Zukunftspreise</li><li>Bevölkerung wächst</li></ul>",
+    dd: "<strong>🧠 Intuition:</strong> Rechts = bei gleichem Preis wird MEHR nachgefragt. Unterschied zu Bewegung entlang der Kurve: Preisänderung des Gutes selbst = Bewegung, alles andere = Verschiebung.<br><br><strong>📌 Klausur-Tipp:</strong> IU fragt gern: 'Verschiebung oder Bewegung?' Test: Ändert sich der Preis DIESES Gutes? Ja → Bewegung. Nein → Verschiebung.<br><br><strong>🔗 Verbindung:</strong> Jede Verschiebung führt zu neuem Marktgleichgewicht." },
+
+  { unit: "Unit 2", group: "unit1-2", diff: "★★★",
+    q: "Wann verschiebt sich die Angebotskurve nach RECHTS?",
+    a: "<ul><li>Produktionsfaktorpreise sinken (z.B. Löhne, Material)</li><li>Technologischer Fortschritt</li><li>Mehr Anbieter treten ein</li><li>Subventionen</li><li>Erwartung sinkender Zukunftspreise → jetzt mehr anbieten</li></ul>",
+    dd: "<strong>🧠 Intuition:</strong> Rechts = bei gleichem Preis wird MEHR angeboten. Technologischer Fortschritt ist langfristig die wichtigste Triebkraft.<br><br><strong>📌 Klausur-Tipp:</strong> Steuern auf Produktion → Angebot nach LINKS (höhere Kosten). Subventionen → rechts. Steuern auf Konsumenten → Nachfrage nach links (nicht verwechseln!).<br><br><strong>🔗 Verbindung:</strong> Im vollst. Wettbewerb (U4) = Angebotskurve ist Summe der MC-Kurven aller Unternehmen." },
+
+  { unit: "Unit 2", group: "unit1-2", diff: "★★★",
+    q: "Was ist das Marktgleichgewicht (Market Equilibrium)?",
+    a: "Der Punkt, an dem sich <strong>Angebots- und Nachfragekurve schneiden</strong>.<br><br>Dort gilt: <strong>nachgefragte Menge = angebotene Menge</strong>. Der Markt wird geräumt (market clearance), es gibt weder Über- noch Unterangebot.<br><br>→ Stationärer Zustand, keine Marktkräfte streben Veränderung an.",
+    dd: "<strong>🧠 Intuition:</strong> Bei Überangebot senken Anbieter Preise (Ware los werden). Bei Übernachfrage steigen Preise (Kunden bieten mehr). Nur im Gleichgewicht kein Anpassungsdruck.<br><br><strong>📌 Klausur-Tipp:</strong> Staatliche Preiskontrollen (Mindestpreis, Höchstpreis) verhindern Gleichgewicht → Über-/Unterangebot als Folge.<br><br><strong>🔗 Verbindung:</strong> Pareto-Optimalität setzt vollst. Wettbewerb voraus; Marktversagen (Monopol, Externalitäten) verhindert dies." },
+
+  { unit: "Unit 2", group: "unit1-2", diff: "★★★",
+    q: "Was bedeutet 'Invisible Hand' nach Adam Smith?",
+    a: "In einem <strong>vollständigen Wettbewerbsmarkt</strong> führt das freie Spiel von Angebot und Nachfrage zu einer <strong>effizienten, pareto-optimalen Allokation</strong> der Ressourcen – <strong>ohne staatlichen Eingriff</strong>.<br><br><strong>Pareto-optimal:</strong> Niemand kann besser gestellt werden, ohne einen anderen schlechter zu stellen.",
+    dd: "<strong>🧠 Intuition:</strong> Adam Smith (1776): Niemand plant das Allgemeinwohl, aber Eigeninteresse + Preissignale koordinieren die Wirtschaft effizienter als zentrale Planung.<br><br><strong>📌 Klausur-Tipp:</strong> Funktioniert NUR bei vollst. Wettbewerb ohne Externalitäten. Marktversagen (Monopol, Info-Asymmetrie) sind Rechtfertigungen für Staatseingriffe.<br><br><strong>🔗 Verbindung:</strong> Gegenteil: Marktversagen in U5, U6, U7 (Monopolrente, Kartelle, Adverse Selektion)." },
+
+  { unit: "Unit 2", group: "unit1-2", diff: "★★★",
+    q: "Formel: Preiselastizität der Nachfrage?",
+    a: "<div class='formula'>E_D = (%-Δ Menge) / (%-Δ Preis) = ΔQ% / ΔP%</div>Vorzeichen normal <strong>negativ</strong>. In der Praxis oft Absolutwert |E_D|.<br><br><strong>|E_D| &gt; 1:</strong> elastisch (Bio-Milch, Luxus)<br><strong>|E_D| &lt; 1:</strong> unelastisch (Benzin, Grundnahrung)<br><strong>|E_D| = 0:</strong> vollkommen unelastisch (Insulin)<br><strong>|E_D| = ∞:</strong> vollkommen elastisch (homogene Güter im Polypol)",
+    dd: "<strong>🧠 Intuition:</strong> Elastizität = Sensitivität. 'Um wie viel Prozent ändert sich die Menge, wenn der Preis um 1% steigt?'<br><br><strong>📌 Klausur-Tipp:</strong> Vorzeichen meist negativ. IU arbeitet oft mit |E_D|. Immer prüfen, ob Aufgabe positiv/negativ oder Absolutwert erwartet!<br><br><strong>🔗 Verbindung:</strong> Lerner-Index im Monopol: (P-MC)/P = 1/|E_D| → unelastischer = höherer Aufschlag möglich." },
+
+  { unit: "Unit 2", group: "unit1-2", diff: "★★★",
+    q: "Rechenaufgabe: Preis steigt 10% (1,30€→1,43€), Nachfrage fällt von 100L auf 95L. Elastizität?",
+    a: "<strong>Berechnung:</strong><div class='formula'>E_D = -5% / 10% = -0,5 → |E_D| = 0,5</div>→ <strong>Unelastische Nachfrage</strong>, da |E_D| &lt; 1.<br><br>Typisch für Benzin: wenig Substitute, Pendler können kurzfristig nicht wechseln.",
+    dd: "<strong>🧠 Intuition:</strong> Benzin kurzfristig unelastisch – kaum Substitute. Langfristig elastischer: E-Auto, Homeoffice, sparsames Fahrzeug möglich.<br><br><strong>📌 Klausur-Tipp:</strong> Rechenweg IMMER zeigen! E_D = (ΔQ/Q) / (ΔP/P) = (-5/100) / (0,13/1,30) = -5%/10% = -0,5.<br><br><strong>🔗 Verbindung:</strong> Unelastische Güter (Tabak, Alkohol, Benzin) → hohe Steuereinnahmen ohne viel Mengenrückgang (Pigou-Steuer-Logik)." },
+
+  { unit: "Unit 2", group: "unit1-2", diff: "★★★",
+    q: "Einkommenselastizität: Was bedeuten die Vorzeichen?",
+    a: "<div class='formula'>E_I = %-Δ Menge / %-Δ Einkommen</div><ul><li><strong>E_I &gt; 1:</strong> Luxusgut (Kaviar, Jacht)</li><li><strong>0 &lt; E_I &lt; 1:</strong> Normalgut notwendig (Grundnahrung)</li><li><strong>E_I &lt; 0:</strong> Inferiores Gut (ÖPNV, Billigbrot) – bei mehr Einkommen kauft man WENIGER</li></ul>",
+    dd: "<strong>🧠 Intuition:</strong> Mit mehr Einkommen: mehr Steak + Restaurant (normal/Luxus), weniger Doseneintopf + Busfahren (inferior).<br><br><strong>📌 Klausur-Tipp:</strong> Engel'sches Gesetz: Arme Haushalte geben proportional mehr für Nahrung aus → Nahrung E_I &lt; 1 (Normalgut, notwendig).<br><br><strong>🔗 Verbindung:</strong> Inferiore Güter haben negativen Einkommenseffekt (U3) → theoretisch Giffen-Gut möglich." },
+
+  { unit: "Unit 2", group: "unit1-2", diff: "★★★",
+    q: "Kreuzpreiselastizität: Was bedeuten positive vs. negative Werte?",
+    a: "<div class='formula'>E_XY = %-Δ Nachfrage X / %-Δ Preis Y</div><strong>E_XY &gt; 0:</strong> Substitutgüter (ersetzen sich)<br>→ Butter &amp; Margarine<br><br><strong>E_XY &lt; 0:</strong> Komplementärgüter (ergänzen sich)<br>→ Auto &amp; Reifen, Müsli &amp; Milch<br><br><strong>E_XY = 0:</strong> unabhängige Güter",
+    dd: "<strong>🧠 Intuition:</strong> Positiv = Konkurrenten (Substitute). Negativ = Team (Komplemente, zusammen genutzt). Je höher der absolute Wert, desto enger die Verbindung.<br><br><strong>📌 Klausur-Tipp:</strong> Kreuzpreiselastizität wird auch zur Marktabgrenzung genutzt: hoher positiver Wert = beide Güter im selben Markt (Kartellrecht).<br><br><strong>🔗 Verbindung:</strong> Für Unternehmensstrategie: Konkurrenzpreis ↑ → eigene Nachfrage ↑ (positiv E_XY)." },
+
+  { unit: "Unit 2", group: "unit1-2", diff: "★★",
+    q: "Was beeinflusst die Preiselastizität der Nachfrage?",
+    a: "<ul><li><strong>Substitute:</strong> viele → elastischer</li><li><strong>Notwendigkeit:</strong> Luxus → elastischer, Notwendiges → unelastischer</li><li><strong>Zeithorizont:</strong> lang → elastischer (mehr Anpassung möglich)</li><li><strong>Budgetanteil:</strong> hoher Anteil → elastischer</li></ul>",
+    dd: "<strong>🧠 Intuition:</strong> Drei Schlüsselfragen: 'Gibt es Substitute?' 'Wie dringend brauche ich es?' 'Wie viel meines Einkommens kostet es?'<br><br><strong>📌 Klausur-Tipp:</strong> Zeitdimension wichtig: Kurzfristig fast immer unelastischer. Langfristig: mehr Alternativen, Verhaltensanpassung.<br><br><strong>🔗 Verbindung:</strong> Monopolist wählt Preis im elastischen Bereich (MR &lt; 0 bei |E| &lt; 1 – dort nie produzieren)." },
+
+  // UNIT 3
+  { unit: "Unit 3", group: "unit3-4", diff: "★★★",
+    q: "Was sind die 4 Eigenschaften von Indifferenzkurven?",
+    a: "<ul><li><strong>1. Höher = besser</strong> (Non-Saturation-Annahme)</li><li><strong>2. Schneiden sich NIE</strong> (würde Transitivität verletzen)</li><li><strong>3. Negative Steigung</strong> (für mehr von A muss man B aufgeben)</li><li><strong>4. Konvex</strong> (nach innen gewölbt – wegen abnehmender MRS)</li></ul>",
+    dd: "<strong>🧠 Intuition:</strong> Stell dir Nutzen als Berglandschaft vor – IK sind Höhenlinien. Höher = mehr Nutzen. Gleiche Höhe = indifferent.<br><br><strong>📌 Klausur-Tipp:</strong> Warum kreuzen sich IK nicht? Schnittpunkt läge auf beiden → gleicher Nutzen – widerspricht aber, dass höhere IK mehr Nutzen hat. Verletzt Transitivität.<br><br><strong>🔗 Verbindung:</strong> Konvexität entsteht aus abnehmender MRS → erklärt Diversifikation im Konsum." },
+
+  { unit: "Unit 3", group: "unit3-4", diff: "★★★",
+    q: "Was ist die Grenzrate der Substitution (MRS)?",
+    a: "<strong>Absolutwert der Steigung der Indifferenzkurve.</strong><br><br>Gibt an, wie viel von Gut Y man aufgibt, um eine Einheit mehr von Gut X zu bekommen – bei gleichem Nutzen.<br><br><strong>Eigenschaft:</strong> Abnehmend entlang der Kurve (diminishing MRS) → deshalb konvex.",
+    dd: "<strong>🧠 Intuition:</strong> 'Wie viel Bier gebe ich für ein weiteres Glas Wein ab?' Je mehr Wein ich schon habe, desto weniger Bier gebe ich auf (abnehmende MRS) → konvexe Kurve.<br><br><strong>📌 Klausur-Tipp:</strong> Im Haushaltsoptimum: MRS = P_X/P_Y. Das ist die zentrale GG-Bedingung! Formal MRS = MU_X/MU_Y.<br><br><strong>🔗 Verbindung:</strong> Direkte Analogie zur MRTS (U4): MRTS = MP_L/MP_K = w/r im Kostenminimum." },
+
+  { unit: "Unit 3", group: "unit3-4", diff: "★★",
+    q: "Perfekte Substitute vs. Perfekte Komplemente – Form der Indifferenzkurve?",
+    a: "<strong>Perfekte Substitute:</strong> Gerade Linien (linear). Tauschverhältnis konstant.<br>Bsp: Apfelsaft vs. Orangensaft<br><br><strong>Perfekte Komplemente:</strong> L-förmig (Winkel).<br>Bsp: Linker &amp; rechter Schuh – nur gemeinsam nutzbar.",
+    dd: "<strong>🧠 Intuition:</strong> Substitute = vollständige Austauschbarkeit (konstante MRS). Komplemente = perfekte Ergänzung (kein Substitutionseffekt möglich).<br><br><strong>📌 Klausur-Tipp:</strong> Bei perfekten Komplementen: Optimum IMMER am Knick. MRS-Bedingung gilt nicht (keine Steigung am Knick definierbar).<br><br><strong>🔗 Verbindung:</strong> Nutzenfunktionen: U = min(aX, bY) für Komplemente; U = aX + bY für Substitute." },
+
+  { unit: "Unit 3", group: "unit3-4", diff: "★★★",
+    q: "Formel und Steigung der Budgetgerade?",
+    a: "<div class='formula'>P_X·X + P_Y·Y = I   →   Y = I/P_Y − (P_X/P_Y)·X</div><strong>Steigung:</strong> −P_X / P_Y (negatives Preisverhältnis)<br><br><strong>Einkommensänderung:</strong> parallele Verschiebung<br><strong>Preisänderung eines Gutes:</strong> Rotation der Budgetgerade",
+    dd: "<strong>🧠 Intuition:</strong> Die Budgetgerade = finanzielle Grenze. Auf der Linie = volles Budget ausgegeben. Steigung = Opportunitätskosten von X in Y-Einheiten.<br><br><strong>📌 Klausur-Tipp:</strong> Preisänderung eines Gutes → Rotation (Achsenabschnitt dieses Gutes ändert sich). Einkommensänderung → Parallelverschiebung.<br><br><strong>🔗 Verbindung:</strong> Kombination mit IK ergibt Haushaltsoptimum. Analog: Isokostengerade in U4." },
+
+  { unit: "Unit 3", group: "unit3-4", diff: "★★★",
+    q: "Was ist das Haushaltsoptimum? Formal und verbal.",
+    a: "<strong>Tangentpunkt</strong> zwischen höchstmöglicher Indifferenzkurve und Budgetgerade.<br><br><div class='formula'>MRS = P_X / P_Y</div>Bedeutung: Grenznutzen pro ausgegebenen Euro ist für <strong>beide Güter gleich</strong>.<br><br>Ist das nicht der Fall → Umschichten erhöht Nutzen.",
+    dd: "<strong>🧠 Intuition:</strong> 'Letzter ausgegebener Euro muss für jedes Gut gleichviel Nutzen bringen.' Sonst lohnt Umschichten.<br><br><strong>📌 Klausur-Tipp:</strong> Formal: MU_X/P_X = MU_Y/P_Y. Umformung: MU_X/MU_Y = P_X/P_Y = MRS = Steigung Budgetgerade.<br><br><strong>🔗 Verbindung:</strong> Exakt analog zum Unternehmensoptimum (U4): MRTS = w/r." },
+
+  { unit: "Unit 3", group: "unit3-4", diff: "★★★",
+    q: "Einkommenseffekt vs. Substitutionseffekt bei einer Preissenkung?",
+    a: "<strong>Substitutionseffekt:</strong> Das Gut ist <strong>relativ billiger</strong> geworden → Konsument kauft mehr davon, weniger vom anderen.<br><br><strong>Einkommenseffekt:</strong> Konsument ist durch die Preissenkung <strong>real reicher</strong> → kann mehr von allem kaufen.<br><br><strong>Normalgut:</strong> beide Effekte gleichgerichtet → mehr Konsum.<br><strong>Inferiores Gut:</strong> Effekte gegenläufig → Gesamteffekt unklar.",
+    dd: "<strong>🧠 Intuition:</strong> Substitution: 'Bier billiger → mehr Bier, weniger Wein.' Einkommen: 'Bier billiger → real reicher → mehr von allem.'<br><br><strong>📌 Klausur-Tipp:</strong> Slutsky-Zerlegung grafisch: Parallele Budgetgerade zum neuen Preis, tangential an alte IK = Substitutionseffekt. Rest = Einkommenseffekt.<br><br><strong>🔗 Verbindung:</strong> Giffen-Gut: negativer Einkommenseffekt überwältigt Substitutionseffekt → Preis steigt, Nachfrage steigt (theoretisch)." },
+
+  { unit: "Unit 3", group: "unit3-4", diff: "★★",
+    q: "Wie wird die individuelle Nachfragekurve hergeleitet?",
+    a: "Durch Variation des Preises <strong>eines Gutes</strong> bei konstantem Einkommen.<br><br>1. Für jeden Preis das Haushaltsoptimum bestimmen (Tangentenpunkt).<br>2. Alle optimalen Mengen zu den jeweiligen Preisen verbinden.<br>3. → Individuelle Nachfragekurve (fallend)<br><br>Das Zwischenresultat heißt <strong>Preis-Konsum-Kurve</strong>.",
+    dd: "<strong>🧠 Intuition:</strong> Man variiert den Preis und liest bei jedem Preis die optimale Menge ab. Die Preis-Mengen-Paare ergeben die Nachfragekurve.<br><br><strong>📌 Klausur-Tipp:</strong> Engel-Kurve entsteht analog durch Variation des Einkommens (statt Preis). Zeigt: wie Konsum mit Einkommen wächst.<br><br><strong>🔗 Verbindung:</strong> Markt-Nachfragekurve = horizontale Summation aller individuellen Nachfragekurven." },
+
+  { unit: "Unit 3", group: "unit3-4", diff: "★★",
+    q: "Was ist Nutzen (Utility) in der Ökonomie?",
+    a: "<strong>Subjektives Maß</strong> der Befriedigung durch den Konsum eines Gutes.<br><br><strong>Eigenschaften:</strong><ul><li>Subjektiv: persönliche Präferenzen</li><li>Ordinal: nur Rangordnung möglich, keine exakten Differenzen</li><li>Bsp: Peter wertet Auto 8, Claudia 4 → Peter mag es mehr. ABER: NICHT 'doppelt so viel'.</li></ul>",
+    dd: "<strong>🧠 Intuition:</strong> Nutzen ist ordinal, nicht kardinal. Man kann Präferenzen ordnen (A &gt; B), aber nicht sagen 'ich mag X doppelt so sehr'.<br><br><strong>📌 Klausur-Tipp:</strong> Unterschied Nutzen vs. Glück: Homo Economicus maximiert Nutzen. Behavioral Economics (U7) zeigt: das führt nicht immer zu 'Glück'.<br><br><strong>🔗 Verbindung:</strong> Verhaltensökonomik (U7) hinterfragt, ob reale Menschen Nutzen wirklich rational maximieren." },
+
+  // UNIT 4
+  { unit: "Unit 4", group: "unit3-4", diff: "★★★",
+    q: "Was ist eine Isoquante?",
+    a: "Alle <strong>Kombinationen von Kapital (K) und Arbeit (L)</strong>, die die <strong>gleiche Outputmenge</strong> erzeugen.<br><br>→ Analog zur Indifferenzkurve! Negative Steigung, konvex.<br><br>Die Steigung = <strong>MRTS</strong> (marginal rate of technical substitution) = Austauschverhältnis der Produktionsfaktoren.",
+    dd: "<strong>🧠 Intuition:</strong> Indifferenzkurve für Unternehmen! Statt 'gleicher Nutzen' gilt 'gleicher Output'. K und L ersetzen sich gegenseitig.<br><br><strong>📌 Klausur-Tipp:</strong> MRTS = MP_L/MP_K = Grenzprodukt Arbeit / Grenzprodukt Kapital. Im Kostenminimum: MRTS = w/r.<br><br><strong>🔗 Verbindung:</strong> Isokostengerade = Budgetgerade des Unternehmens. Tangentenpunkt = kostenminimale Faktorkombination." },
+
+  { unit: "Unit 4", group: "unit3-4", diff: "★★",
+    q: "Was sind Skalenerträge (Returns to Scale)?",
+    a: "Wenn <strong>alle Produktionsfaktoren</strong> proportional erhöht werden:<br><br><strong>Konstant:</strong> Output steigt proportional<br><br><strong>Zunehmend:</strong> Output steigt überproportional → Spezialisierung, Lerneffekte<br><br><strong>Abnehmend:</strong> Output steigt unterproportional → Koordinationsprobleme",
+    dd: "<strong>🧠 Intuition:</strong> Verdopple ALLE Inputs gleichzeitig. Was passiert mit Output? Verdopplung = konstant. Mehr = zunehmend. Weniger = abnehmend.<br><br><strong>📌 Klausur-Tipp:</strong> Unterschied zu Grenzprodukt: Skalenerträge = alle Inputs zusammen. Grenzprodukt = nur einer, andere konstant.<br><br><strong>🔗 Verbindung:</strong> Zunehmende Skalenerträge → Economies of Scale → natürliches Monopol möglich (U5)." },
+
+  { unit: "Unit 4", group: "unit3-4", diff: "★★★",
+    q: "Formal: Wann liegt das Kostenminimum eines Unternehmens?",
+    a: "Am <strong>Tangentpunkt</strong> zwischen Isoquante und niedrigstmöglicher Isokostengerade.<br><div class='formula'>MRTS = w / r</div>w = Lohnkosten, r = Kapitalkosten.<br><br>→ Steigung Isoquante = Steigung Isokostengerade.",
+    dd: "<strong>🧠 Intuition:</strong> 'Wie produziere ich gegebene Menge möglichst günstig?' Antwort: Faktoreinsatz so wählen, dass letzter Euro für jeden Faktor gleichviel Output bringt.<br><br><strong>📌 Klausur-Tipp:</strong> MRTS = w/r: Arbeit relativ teurer (hoher Lohn) → mehr Kapital. Kapital teurer → mehr Arbeit. Erklärt Automatisierungstrend!<br><br><strong>🔗 Verbindung:</strong> Aus kostenminimaler Faktorkombination folgt die Kostenfunktion → daraus MC und AC Kurven." },
+
+  { unit: "Unit 4", group: "unit3-4", diff: "★★★",
+    q: "Beziehung zwischen Grenzkosten (MC) und Durchschnittskosten (AC)?",
+    a: "<ul><li><strong>MC &lt; AC:</strong> AC fällt</li><li><strong>MC &gt; AC:</strong> AC steigt</li><li><strong>MC = AC:</strong> AC ist im Minimum</li></ul><strong>→ Grenzkostenkurve schneidet Durchschnittskostenkurve IMMER im Minimum der AC-Kurve.</strong><br><br>Beide Kurven sind typisch U-förmig.",
+    dd: "<strong>🧠 Intuition:</strong> Wie beim Schulnotendurchschnitt: Neue Note unter Durchschnitt → Durchschnitt sinkt. Darüber → steigt. Gleich → genau im Minimum.<br><br><strong>📌 Klausur-Tipp:</strong> Gilt auch für MC und AVC: MC schneidet AVC im Minimum von AVC (gleiche Logik). Immer prüfungsrelevant!<br><br><strong>🔗 Verbindung:</strong> Im langfr. GG vollst. Wettbewerb: P = MC = AC(min) – alle drei gleich. Effizienzmaximum." },
+
+  { unit: "Unit 4", group: "unit3-4", diff: "★★★",
+    q: "Gewinnmaximierungsregel für jedes Unternehmen?",
+    a: "<div class='formula'>Grenzkosten = Grenzerlös (MC = MR)</div><strong>Im vollständigen Wettbewerb:</strong> MR = P → <strong>MC = P</strong><br><br><strong>Logik:</strong><ul><li>Wenn MC &lt; P: eine Einheit mehr bringt Gewinn</li><li>Wenn MC &gt; P: eine Einheit weniger spart Verlust</li><li>Nur bei MC = P: kein Anreiz zur Änderung</li></ul>",
+    dd: "<strong>🧠 Intuition:</strong> Solange jede zusätzliche Einheit mehr Einnahmen (MR) als Kosten (MC) bringt → produzieren. Sobald MC &gt; MR → aufhören.<br><br><strong>📌 Klausur-Tipp:</strong> Gilt für ALLE Marktformen! Unterschied liegt im MR: Vollst. Wettbewerb MR = P (horizontal). Monopol MR &lt; P (fallend).<br><br><strong>🔗 Verbindung:</strong> Monopolist: MC = MR, Preis dann von Nachfragekurve ablesen (nicht MR-Kurve!)." },
+
+  { unit: "Unit 4", group: "unit3-4", diff: "★★★",
+    q: "Warum ist die Nachfragekurve für EIN Unternehmen im vollst. Wettbewerb horizontal?",
+    a: "Das Unternehmen ist <strong>Preisnehmer (price-taker)</strong> – zu klein, um den Marktpreis zu beeinflussen.<br><br>Es kann jede Menge zum Marktpreis verkaufen. Ein Cent mehr → alle Kunden gehen zu Konkurrenten (homogene Produkte!).<br><br>→ Vollkommen elastische Nachfrage für das einzelne Unternehmen.",
+    dd: "<strong>🧠 Intuition:</strong> Ein Einzelunternehmen ist ein Sandkorn am Strand – kein Einfluss auf das Gesamte. Nimmt Marktpreis als gegeben hin.<br><br><strong>📌 Klausur-Tipp:</strong> Horizontal → vollkommen elastisch (E_D = ∞). → MR = P. Gewinnmaximierung vereinfacht zu MC = P.<br><br><strong>🔗 Verbindung:</strong> Gegenteil: Monopol hat geneigte Nachfragekurve → Preissetzungsmacht → Wohlfahrtsverlust." },
+
+  { unit: "Unit 4", group: "unit3-4", diff: "★★★",
+    q: "Wie sieht das langfristige Gleichgewicht im vollst. Wettbewerb aus?",
+    a: "<div class='formula'>P = MC = AC(min)</div>Durch <strong>freien Marktein-/austritt</strong>:<br><ul><li>Unternehmen machen Gewinne → neue treten ein → Preis sinkt</li><li>Unternehmen machen Verluste → verlassen Markt → Preis steigt</li><li>Gleichgewicht: Preis = minimale Durchschnittskosten → <strong>Nullgewinn</strong>, effiziente Produktion</li></ul>",
+    dd: "<strong>🧠 Intuition:</strong> 'Hotelmarkt am Meer': Sommerprofite locken neue Hotels → mehr Angebot → Preise sinken → Gewinne = 0.<br><br><strong>📌 Klausur-Tipp:</strong> Nullgewinn ≠ Verlust! Buchhalterisch kann Gewinn positiv sein. Ökonomisch: alle Kosten inkl. Opportunitätskosten gedeckt.<br><br><strong>🔗 Verbindung:</strong> Im monopol. Wettbewerb (U5) gleicher Mechanismus, aber weniger effizient: P = AC, aber P &gt; MC." },
+
+  { unit: "Unit 4", group: "unit3-4", diff: "★★",
+    q: "Economies of Scale vs. Diseconomies of Scale?",
+    a: "<strong>Economies of Scale:</strong><br>Stückkosten sinken mit steigender Menge → fallende AC-Kurve.<br>Ursachen: Mengeneinkauf, Spezialisierung, Auslastung.<br><br><strong>Diseconomies of Scale:</strong><br>Stückkosten steigen mit steigender Menge → steigende AC-Kurve.<br>Ursachen: Koordinationsprobleme, Bürokratie in Großkonzernen.",
+    dd: "<strong>🧠 Intuition:</strong> Amazon kauft Papier für Cent-Bruchteile (Economies). Ab bestimmter Größe: Bürokratie bremst, CEO verliert Überblick (Diseconomies).<br><br><strong>📌 Klausur-Tipp:</strong> U-förmige AC entsteht durch Wechsel Economies → Diseconomies. Minimum AC = effiziente Mindestgröße (MES).<br><br><strong>🔗 Verbindung:</strong> Natürliches Monopol (U5): Economies so stark, dass ein Anbieter immer günstiger als zwei." },
+
+  // UNIT 5
+  { unit: "Unit 5", group: "unit5-6", diff: "★★★",
+    q: "Wie maximiert ein Monopolist seinen Gewinn?",
+    a: "<strong>Schritt 1:</strong> Menge wählen, bei der <strong>MC = MR</strong><br><strong>Schritt 2:</strong> Preis von Nachfragekurve ablesen<br><br><strong>Ergebnis:</strong><ul><li>Preis P* &gt; Grenzkosten MC (Monopolrente)</li><li>Menge Q* &lt; Wettbewerbsmenge</li><li>Ineffizient (Wohlfahrtsverlust)</li></ul><strong>Merke:</strong> MR &lt; P weil Preis bei Mengenerhöhung sinkt.",
+    dd: "<strong>🧠 Intuition:</strong> Monopolist muss Preis senken, um mehr zu verkaufen (fallende Nachfragekurve). Preissenkung trifft ALLE Einheiten → MR &lt; P.<br><br><strong>📌 Klausur-Tipp:</strong> MR-Kurve liegt bei linearer Nachfrage doppelt so steil. Erst MC=MR → Q*, dann P* von Nachfragekurve (NICHT MR!) ablesen.<br><br><strong>🔗 Verbindung:</strong> Wohlfahrtsverlust (deadweight loss) = Dreieck zwischen Wettbewerbs- und Monopolmenge. Rechtfertigt Wettbewerbspolitik." },
+
+  { unit: "Unit 5", group: "unit5-6", diff: "★★★",
+    q: "Die 5 Ursachen für ein Monopol?",
+    a: "<ul><li><strong>1. Staatliches Monopol:</strong> Exklusivlizenz</li><li><strong>2. Patent:</strong> gesetzl. Alleinrecht 20 Jahre</li><li><strong>3. Natürliches Monopol:</strong> ein Anbieter günstiger (Wassernetz)</li><li><strong>4. Alleinbesitz kritischer Ressource</strong></li><li><strong>5. Externes Wachstum:</strong> Übernahmen/Fusionen</li></ul>",
+    dd: "<strong>🧠 Intuition:</strong> Monopole entstehen durch Staat (Patent, Lizenz), natürliche Kostenstruktur oder Marktkonzentration. Nur natürliche Monopole werden toleriert.<br><br><strong>📌 Klausur-Tipp:</strong> Patent = 20 Jahre Schutz, dann Generika (wichtig für Pharma). IU-Frage: 'Welche Monopolart rechtfertigt staatl. Duldung?' → natürliches Monopol.<br><br><strong>🔗 Verbindung:</strong> Natürl. Monopol → Bundesnetzagentur. Illegales Monopol → Kartellamt (§19 GWB)." },
+
+  { unit: "Unit 5", group: "unit5-6", diff: "★★★",
+    q: "Was ist ein natürliches Monopol?",
+    a: "Ein Markt, in dem <strong>ein einzelner Anbieter günstiger</strong> produzieren kann als zwei oder mehr.<br><br><strong>Ursache:</strong> sehr hohe Fixkosten für Infrastruktur.<br><br><strong>Beispiele:</strong> Wassernetz, Gasnetz, Stromnetz.<br><br><strong>Staatliche Reaktion:</strong> Regulierung durch z.B. <strong>Bundesnetzagentur</strong>.",
+    dd: "<strong>🧠 Intuition:</strong> Zweites Wassernetz neben dem ersten = totale Verschwendung. Ein Anbieter ist gesellschaftlich besser – aber braucht Regulierung gegen Monopolpreise.<br><br><strong>📌 Klausur-Tipp:</strong> Regulierungsproblem: P=MC effizient, aber Verlust (MC &lt; AC wg. hoher Fixkosten). Lösung: P=AC (kostendeckend) oder Subvention + P=MC.<br><br><strong>🔗 Verbindung:</strong> Entsteht aus zunehmenden Skalenerträgen (U4). Bundesnetzagentur reguliert Strom, Gas, Telko, Schienen." },
+
+  { unit: "Unit 5", group: "unit5-6", diff: "★★★",
+    q: "Monopolistischer Wettbewerb – die 3 Kernmerkmale?",
+    a: "<ul><li><strong>1. Viele Unternehmen</strong> konkurrieren um dieselbe Kundengruppe</li><li><strong>2. Produktdifferenzierung</strong> – Produkte unterscheiden sich leicht → fallende individuelle Nachfragekurve</li><li><strong>3. Freier Marktzutritt/-austritt</strong> – keine Barrieren</li></ul><strong>Beispiele:</strong> Restaurants, Zahnpasta, Kleidungsmarken.",
+    dd: "<strong>🧠 Intuition:</strong> Dein Lieblingsrestaurant hat ein Mini-Monopol auf seine Spezialität. Ähnliche nebenan = Wettbewerb. Produktdifferenzierung schafft begrenzte Marktmacht.<br><br><strong>📌 Klausur-Tipp:</strong> Vergleich: P &gt; MC (wie Monopol, ineffizient) + Kapazitätsüberhang (Produktion unter AC-Minimum). Werbung versucht Nachfrage weniger elastisch zu machen.<br><br><strong>🔗 Verbindung:</strong> Langfristig Nullgewinn wie vollst. WB, aber ineffizienter wegen P &gt; MC." },
+
+  { unit: "Unit 5", group: "unit5-6", diff: "★★★",
+    q: "Wie entwickelt sich der Gewinn im monopolist. Wettbewerb kurz- und langfristig?",
+    a: "<strong>Kurzfristig:</strong> wie Monopol – MC = MR, P &gt; MC, <strong>Gewinn möglich</strong>.<br><br><strong>Langfristig:</strong> Freier Markteintritt → individuelle Nachfragekurve verschiebt sich nach <strong>links</strong> → <strong>Gewinn = 0</strong>.<br><br>Im langfr. GG: Nachfragekurve tangiert Durchschnittskostenkurve. P = AC, aber immer noch P &gt; MC.",
+    dd: "<strong>🧠 Intuition:</strong> Erfolgreiche Pizzeria macht Gewinn → neue öffnen → Kunden verteilen sich → Gewinne auf null. Freier Eintritt = Gewinnerosion.<br><br><strong>📌 Klausur-Tipp:</strong> Langfr. GG: Nachfragekurve tangential zur AC. P = AC (Nullgewinn), aber P &gt; MC (Ineffizienz). 'Kapazitätsüberhang' = Produktion unterhalb AC-Minimum.<br><br><strong>🔗 Verbindung:</strong> Gleicher Mechanismus wie U4 (langfr. vollst. WB), aber Gleichgewicht weniger effizient." },
+
+  { unit: "Unit 5", group: "unit5-6", diff: "★★",
+    q: "Was ist ein Kartell und warum scheitert es oft?",
+    a: "<strong>Kartell:</strong> Absprache zwischen Oligopolisten über Preis/Menge wie ein Monopol.<br><br><strong>Scheitert oft weil:</strong><ul><li>Rechtlich verboten (§1 GWB)</li><li><strong>Gefangenendilemma:</strong> jedes Mitglied hat Anreiz, unilateral mehr zu produzieren</li><li>Ergebnis: beide weichen ab → Preis sinkt → geringerer Gesamtgewinn</li></ul>",
+    dd: "<strong>🧠 Intuition:</strong> OPEC als Beispiel. Alle weniger produzieren → Preis hoch → alle verdienen mehr. Aber jeder hat Anreiz zu schummeln (extra Gewinn) → Kartell bricht.<br><br><strong>📌 Klausur-Tipp:</strong> Deutschland: §1 GWB-Verbot. EU: Art. 101 AEUV. Bundeskartellamt verhängt hohe Bußgelder. IU-Frage: Warum scheitern Kartelle auch ohne Strafverfolgung?<br><br><strong>🔗 Verbindung:</strong> Direkte Anwendung des Gefangenendilemmas (U6). Stabile Kartelle brauchen Bindung oder Wiederholung." },
+
+  // UNIT 6
+  { unit: "Unit 6", group: "unit5-6", diff: "★★★",
+    q: "Was ist eine dominante Strategie?",
+    a: "Eine Strategie, die <strong>unabhängig von der Entscheidung des Gegners</strong> immer die beste Antwort ist.<br><br><strong>Test:</strong> Für jede mögliche Entscheidung des Gegners prüfen, was die beste Reaktion ist. Ist es immer dieselbe → dominante Strategie.",
+    dd: "<strong>🧠 Intuition:</strong> Einfachster Fall: 'Egal was der andere macht – diese Strategie ist immer besser.' Kein Nachdenken über den Gegner nötig.<br><br><strong>📌 Klausur-Tipp:</strong> Lösungsweg: Für Spieler 1 jede Zeile checken – welche Strategie ist bei jeder Spalte besser? Dann für Spieler 2. Beide → Gleichgewicht in dominanten Strategien.<br><br><strong>🔗 Verbindung:</strong> Sonderfall des Nash-GG. Jedes GG in dominanten Strategien ist Nash-GG, aber nicht umgekehrt." },
+
+  { unit: "Unit 6", group: "unit5-6", diff: "★★★",
+    q: "Was ist ein Nash-Gleichgewicht?",
+    a: "Eine Strategiekombination, bei der <strong>kein Spieler</strong> einen Anreiz hat, <strong>einseitig</strong> abzuweichen – gegeben die Strategie des Gegners.<br><br><strong>Wichtig:</strong><ul><li>Gleichgewicht in dominanten Strategien ⊂ Nash-GG</li><li>Ein Spiel kann mehrere oder KEIN Nash-GG haben</li><li>Stabil ≠ optimal! (siehe Gefangenendilemma)</li></ul>",
+    dd: "<strong>🧠 Intuition:</strong> 'Ich würde meine Entscheidung nicht ändern, wenn ich die des anderen sehe.' Stabil, aber nicht notwendigerweise optimal.<br><br><strong>📌 Klausur-Tipp:</strong> Methode: In jeder Spalte bestes Ergebnis für Spieler 1 markieren (↑). In jeder Zeile bestes für Spieler 2 (→). Wo beide zeigen = Nash-GG.<br><br><strong>🔗 Verbindung:</strong> Nash-GG ≠ Pareto-optimal. Gefangenendilemma: beide gestehen ist Nash-GG, aber beide leugnen wäre besser." },
+
+  { unit: "Unit 6", group: "unit5-6", diff: "★★★",
+    q: "Was ist das Gefangenendilemma und warum ist es relevant?",
+    a: "Zwei Spieler haben eine <strong>dominante Strategie</strong>, die zum <strong>suboptimalen Ergebnis</strong> für beide führt.<br><br><strong>Kern:</strong> Individuelle Rationalität ≠ kollektive Rationalität.<br><br><strong>Klassisch:</strong> Beide gestehen → 5 Jahre. Obwohl Leugnen nur 2 Jahre gebracht hätte.<br><br><strong>Anwendung:</strong> Oligopole, Rüstungswettlauf, Werbespiel.",
+    dd: "<strong>🧠 Intuition:</strong> Beide wissen, dass gegenseitiges Schweigen besser wäre. Aber Vertrauen fehlt → Angst vor Verrat → beide gestehen. Das berühmteste Paradox der Spieltheorie.<br><br><strong>📌 Klausur-Tipp:</strong> Lösungen in Praxis: Wiederholung (Reputation), bindende Verträge, soziale Normen, staatliche Durchsetzung.<br><br><strong>🔗 Verbindung:</strong> Gleiche Logik: Sparparadoxon (U1), Kartellscheitern (U5), Umweltverschmutzung." },
+
+  { unit: "Unit 6", group: "unit5-6", diff: "★★★",
+    q: "Anwendung Gefangenendilemma im Oligopol – wie?",
+    a: "Zwei Duopolisten:<br>Gemeinsame Monopolproduktion wäre <strong>profit-maximal</strong>, aber jedes Unternehmen hat Anreiz, <strong>unilateral mehr</strong> zu produzieren.<br><br><strong>Ergebnis:</strong> Beide produzieren mehr als Monopolmenge → Preis sinkt → beide verdienen weniger als bei Kooperation, aber mehr als im vollst. Wettbewerb.",
+    dd: "<strong>🧠 Intuition:</strong> Beide wären mit Monopolmenge besser dran. Aber jeder denkt unilateral: 'mehr produzieren = mehr Gewinn.' Beide denken so → Cournot-GG.<br><br><strong>📌 Klausur-Tipp:</strong> Cournot-Modell: Unternehmen optimieren Menge gegeben erwartete Konkurrenzmenge. Reaktionsfunktionen → Schnittpunkt = Cournot-Nash-GG.<br><br><strong>🔗 Verbindung:</strong> Kartell = Kooperation auf Monopolmenge (instabil). Cournot = Nash-GG ohne Kooperation (Gesamtmenge zu hoch)." },
+
+  { unit: "Unit 6", group: "unit5-6", diff: "★★★",
+    q: "Was ist Rückwärtsinduktion (Backward Induction)?",
+    a: "Lösungsverfahren für <strong>sequenzielle Spiele</strong>. Man löst den Entscheidungsbaum von hinten nach vorne:<br><br><strong>1.</strong> Beim letzten Spieler: Was ist bei jeder möglichen Vorgeschichte die optimale Entscheidung?<br><strong>2.</strong> Der vorletzte Spieler antizipiert das und wählt entsprechend.<br><strong>3.</strong> So weiter bis zum ersten Zug.<br><br>→ Identifiziert das <strong>teilspielperfekte Gleichgewicht</strong>.",
+    dd: "<strong>🧠 Intuition:</strong> Schachspieler denken voraus: 'Was macht er, wenn ich X tue? Was mache ich dann?' Von den Endknoten rückwärts denken.<br><br><strong>📌 Klausur-Tipp:</strong> Am Baum von Blättern rückarbeiten. Für jeden Entscheidungsknoten: welche Option ist für den zuständigen Spieler besser? Eintragen, dann Pfad ablesen.<br><br><strong>🔗 Verbindung:</strong> Leere Drohungen werden durch Rückwärtsinduktion aufgedeckt – sind sie nach dem Ereignis noch rational?" },
+
+  { unit: "Unit 6", group: "unit5-6", diff: "★★★",
+    q: "Was ist der First-Mover-Advantage?",
+    a: "In sequenziellen Spielen hat der <strong>erste Spieler</strong> oft einen Vorteil, weil er <strong>Fakten schafft</strong> und den Gegner in eine bestimmte Reaktion zwingt.<br><br><strong>Beispiel:</strong> Müsli-Hersteller – wer zuerst den süßen Geschmack einführt, zwingt den Konkurrenten zur knusprigen Variante.",
+    dd: "<strong>🧠 Intuition:</strong> Wer zuerst handelt, schafft vollendete Tatsachen. Zweiter muss reagieren. Aber: Second-Mover-Advantage gibt es auch (z.B. 'wait and see').<br><br><strong>📌 Klausur-Tipp:</strong> Stackelberg-Modell: Marktführer wählt Menge zuerst, Folger reagiert. Führer produziert mehr als im Cournot-GG → profitabler!<br><br><strong>🔗 Verbindung:</strong> Ergibt sich aus Rückwärtsinduktion. Relevant für Markteintrittsstrategien." },
+
+  { unit: "Unit 6", group: "unit5-6", diff: "★★★",
+    q: "Leere Drohung vs. Glaubwürdige Bindung (Credible Commitment)?",
+    a: "<strong>Leere Drohung:</strong> Ankündigung, die <strong>nicht glaubwürdig</strong> ist, weil der Drohende selbst keinen Anreiz hat, sie auszuführen.<br><br><strong>Glaubwürdige Bindung:</strong> Vorab-Verpflichtung (Kosten/Strafen), die es <strong>teurer</strong> macht, die Ankündigung NICHT umzusetzen.<br><br>→ Rückwärtsinduktion deckt leere Drohungen auf.",
+    dd: "<strong>🧠 Intuition:</strong> 'Wenn du eintrittst, führe ich Preiskrieg!' Glaubwürdig nur, wenn nach dem Eintritt Anreiz besteht, das durchzuziehen. Vorab-Investitionen machen Drohungen glaubwürdig.<br><br><strong>📌 Klausur-Tipp:</strong> Rückwärtsinduktion zeigt leere Drohungen: Wenn es nach dem Eintritt für den Drohenden besser ist NICHT anzugreifen → leer → Drohung ignoriert.<br><br><strong>🔗 Verbindung:</strong> NATO-Artikel 5, Zentralbank-Unabhängigkeit als Beispiele für Credible Commitment." },
+
+  { unit: "Unit 6", group: "unit5-6", diff: "★★",
+    q: "Simultane vs. Sequenzielle Spiele – Unterschied?",
+    a: "<strong>Simultan:</strong> Spieler entscheiden gleichzeitig. Dargestellt als <strong>Auszahlungsmatrix</strong>.<br>Bsp: Gefangenendilemma.<br><br><strong>Sequenziell:</strong> Spieler entscheiden nacheinander, spätere kennen vorherige Züge. Dargestellt als <strong>Entscheidungsbaum</strong>.<br>Bsp: Schach, Markteintrittsspiele.",
+    dd: "<strong>🧠 Intuition:</strong> Simultan = niemand kennt vorher Entscheidung des anderen (Schere-Stein-Papier). Sequenziell = späterer Spieler kennt frühere Züge.<br><br><strong>📌 Klausur-Tipp:</strong> Darstellungsform verrät Spieltyp: Normalform (Matrix) = simultan. Extensive Form (Baum) = sequenziell.<br><br><strong>🔗 Verbindung:</strong> Rückwärtsinduktion nur bei sequenziellen Spielen. Bei simultanen: Matrix-Nash-GG." },
+
+  { unit: "Unit 6", group: "unit5-6", diff: "★★",
+    q: "Kooperatives vs. Nicht-kooperatives Spiel?",
+    a: "<strong>Kooperatives Spiel:</strong> Bindende Verträge zwischen Spielern möglich und durchsetzbar.<br><br><strong>Nicht-kooperatives Spiel:</strong> <strong>Keine</strong> bindenden Verträge möglich (oder rechtlich verboten).<br><br>Bsp: Oligopolisten dürfen keine Preisabsprachen treffen → jeder muss Reaktion der anderen antizipieren.",
+    dd: "<strong>🧠 Intuition:</strong> Nicht-kooperativ ≠ feindselig! Es bedeutet nur: kein bindender Vertrag möglich oder durchsetzbar. Spieler entscheiden unabhängig.<br><br><strong>📌 Klausur-Tipp:</strong> Fast alle IU-Spieltheorie-Aufgaben sind nicht-kooperativ (Nash-GG). Kooperative Spieltheorie (Shapley-Wert) selten Prüfungsstoff.<br><br><strong>🔗 Verbindung:</strong> Kartell = kooperativ wenn Vertrag bindend. Realität: Kartellverbot → nicht-kooperativ → Gefangenendilemma." },
+
+  // UNIT 7
+  { unit: "Unit 7", group: "unit7", diff: "★★★",
+    q: "Asymmetrische Information – was ist das?",
+    a: "Situation, in der <strong>ein Marktakteur privates Wissen</strong> hat, das der andere nicht hat.<br><br><strong>Zwei Arten von Problemen:</strong><ul><li><strong>Hidden Property</strong> (verborgene Eigenschaft) → Adverse Selektion</li><li><strong>Hidden Action</strong> (verborgene Handlung) → Moral Hazard</li></ul>Führt zu Marktversagen – Lösung: Signaling und Screening.",
+    dd: "<strong>🧠 Intuition:</strong> George Akerlof 1970 'Market for Lemons' (Nobelpreis 2001): Gebrauchtwagen – Verkäufer weiß Qualität, Käufer nicht. Ergebnis: nur Schrott landet auf dem Markt.<br><br><strong>📌 Klausur-Tipp:</strong> Unterscheide genau: Hidden Property = Eigenschaft (wer?) → Adverse Selektion. Hidden Action = Handlung (was tut?) → Moral Hazard.<br><br><strong>🔗 Verbindung:</strong> Lösungen: Signaling (Agent handelt) und Screening (Principal handelt)." },
+
+  { unit: "Unit 7", group: "unit7", diff: "★★★",
+    q: "Adverse Selektion – Definition und Beispiel?",
+    a: "<strong>Ex ante Problem (VOR Vertragsschluss):</strong> Principal kann die Eigenschaften des Agents <strong>nicht beobachten</strong>. Schlechte Typen verdrängen gute aus dem Markt.<br><br><strong>Beispiel Krankenversicherung:</strong> Bei Durchschnittspreis kaufen nur Hochrisiko-Personen → Teufelskreis.<br><br><strong>Weiteres Beispiel:</strong> Gebrauchtwagen-Markt (Akerlof 'Lemons')",
+    dd: "<strong>🧠 Intuition:</strong> 'Adverse' = nachteilig für den Markt. Teurer Preis → nur Hochrisiko kauft → Preis muss steigen → noch mehr Niedrigrisiko steigt aus → Spirale → Markt kollabiert.<br><br><strong>📌 Klausur-Tipp:</strong> Lösungen: Versicherungspflicht (GKV eliminiert Adverse Selektion). Screening (Selbstbehalt). Signaling (Gesundheitsattest).<br><br><strong>🔗 Verbindung:</strong> Adverse Selektion = Problem. Signaling + Screening = Lösungen. Immer zusammen lernen!" },
+
+  { unit: "Unit 7", group: "unit7", diff: "★★★",
+    q: "Moral Hazard – Definition und Beispiel?",
+    a: "<strong>Ex post Problem (NACH Vertragsschluss):</strong> Agent ändert sein Verhalten zum Nachteil des Principals, weil Principal es nicht beobachten kann.<br><br><strong>Ex-ante Moral Hazard:</strong> Versicherter passt weniger auf sich auf.<br><strong>Ex-post Moral Hazard:</strong> Versicherter nimmt teure Behandlung bei leichter Krankheit in Anspruch.<br><br><strong>Arbeitsmarkt:</strong> Mitarbeiter strengt sich weniger an als vereinbart.",
+    dd: "<strong>🧠 Intuition:</strong> Mit Vollkasko parkt man sorgloser. Mit Krankenversicherung geht man häufiger zum Arzt für Bagatellen. Verhalten ändert sich NACH dem Vertrag.<br><br><strong>📌 Klausur-Tipp:</strong> Lösungen: Selbstbehalt (erhält Anreiz zur Vorsicht), Monitoring, leistungsbasierte Vergütung (Aktienoptionen).<br><br><strong>🔗 Verbindung:</strong> Principal-Agent-Problem: Aktionäre (P) vs. Manager (A). Versicherung vs. Versicherter." },
+
+  { unit: "Unit 7", group: "unit7", diff: "★★★",
+    q: "Adverse Selektion vs. Moral Hazard – Kernunterschied?",
+    a: "<strong>Zeitpunkt:</strong><ul><li>Adverse Selektion: <strong>VOR</strong> Vertragsschluss (ex ante)</li><li>Moral Hazard: <strong>NACH</strong> Vertragsschluss (ex post)</li></ul><strong>Problem-Typ:</strong><ul><li>Adverse Selektion: Hidden Property – WER ist der Agent?</li><li>Moral Hazard: Hidden Action – WAS tut der Agent?</li></ul><strong>Merkspruch:</strong> 'Adverse Selektion = wrong person. Moral Hazard = wrong behavior.'",
+    dd: "<strong>🧠 Intuition:</strong> Eine Frage hilft: 'Wann entsteht das Problem – VOR oder NACH dem Vertrag?' Vor = Adverse Selektion (falscher Typ). Nach = Moral Hazard (richtiger Typ verhält sich falsch).<br><br><strong>📌 Klausur-Tipp:</strong> Fallbeispiel-Typ: Kranker kauft ohne Diagnose = Adverse Selektion. Versicherter geht nach Vertrag unnötig zum Arzt = Moral Hazard.<br><br><strong>🔗 Verbindung:</strong> Beide entstehen aus asymmetrischer Information. Beide führen zu Marktversagen." },
+
+  { unit: "Unit 7", group: "unit7", diff: "★★★",
+    q: "Signaling – Definition und Voraussetzung für wirksames Signal?",
+    a: "<strong>Informierte Partei</strong> (Agent) sendet <strong>glaubwürdiges Signal</strong> über ihre Qualität an die uninformierte Partei.<br><br><strong>Voraussetzungen:</strong><ol><li>Signal muss <strong>kostspielig</strong> sein (sonst macht es jeder)</li><li>Signal muss für <strong>guten Typ günstiger</strong> sein als für schlechten Typ</li></ol><strong>Beispiele:</strong> Hochschulabschluss, Produktgarantie, teure Werbung.",
+    dd: "<strong>🧠 Intuition:</strong> Spence 1973 (Nobelpreis 2001): Uni-Abschluss signalisiert Produktivität – nicht wegen des Lerninhalts, sondern weil er für intelligente Menschen günstiger zu erwerben ist.<br><br><strong>📌 Klausur-Tipp:</strong> Trennbedingung: guter Typ will Signal ausführen, schlechter Typ nicht. Sonst: Pooling-GG → Signal uninformativ.<br><br><strong>🔗 Verbindung:</strong> Lösung für Adverse Selektion. Gegenstück: Screening (Principal handelt aktiv)." },
+
+  { unit: "Unit 7", group: "unit7", diff: "★★★",
+    q: "Screening – Definition und Beispiele?",
+    a: "<strong>Uninformierte Partei</strong> (Principal) wird <strong>aktiv</strong>, um das private Wissen des Agents herauszufinden.<br><br>Oft durch <strong>Vertragsgestaltung</strong> die Selbst-Selektion erzwingt.<br><br><strong>Beispiele:</strong><ul><li>Jobinterview / Assessment Center</li><li>Gebrauchtwagen beim Mechaniker prüfen</li><li>Tarife mit/ohne Selbstbehalt → Hochrisiko outet sich selbst</li></ul>",
+    dd: "<strong>🧠 Intuition:</strong> Versicherungen erfanden Selbstbehalt-Tarife gezielt als Screening-Tool: Gesunde wählen hohen Selbstbehalt/niedrige Prämie und 'outen' sich als Niedrigrisiko.<br><br><strong>📌 Klausur-Tipp:</strong> Screening erzeugt 'Menü von Verträgen' – verschiedene Optionen, aus denen Typen sich selbst sortieren (Self-Selection).<br><br><strong>🔗 Verbindung:</strong> Gegenteil von Signaling: Beim Screening handelt die UNINFORMIERTE Partei. Bei Signaling die INFORMIERTE." },
+
+  { unit: "Unit 7", group: "unit7", diff: "★★",
+    q: "Begrenzte Rationalität (Limited Rationality) – was bedeutet das?",
+    a: "Menschen haben <strong>nicht unbegrenzte kognitive Fähigkeiten</strong>, um alle Informationen optimal zu verarbeiten.<br><br>Weicht vom Standard-Modell des <strong>Homo Economicus</strong> ab.<br><br><strong>Alternative:</strong> Satisficer statt Maximizer – Menschen suchen nur, bis sie eine 'gut genug'-Option gefunden haben.<br><br>Gegenstand der <strong>Verhaltensökonomik</strong>.",
+    dd: "<strong>🧠 Intuition:</strong> Herbert Simon (Nobelpreis 1978): 'Bounded Rationality'. Menschen haben kognitive Grenzen – begrenzte Zeit, Aufmerksamkeit, Information. Deshalb Satisficing statt Maximizing.<br><br><strong>📌 Klausur-Tipp:</strong> IU-Vergleich: Homo Economicus (unbegrenzt rational) vs. realer Mensch (Heuristiken, Faustregeln).<br><br><strong>🔗 Verbindung:</strong> Grundlage der Verhaltensökonomik – erklärt Endowment-Effekt, Framing, Status-quo-Bias." },
+
+  { unit: "Unit 7", group: "unit7", diff: "★★",
+    q: "Endowment-Effekt – was ist das?",
+    a: "Menschen bewerten Dinge, die sie <strong>besitzen</strong>, <strong>höher</strong> als identische Dinge, die sie nicht besitzen.<br><br><strong>Klassisches Experiment:</strong> Studenten bekommen zufällig eine Kaffeetasse.<br>→ Besitzer fordern im Schnitt 7$ zum Verkauf<br>→ Nicht-Besitzer zahlen nur 3,50$<br><br><strong>Erklärung:</strong> Verlustaversion – der Verlust wiegt schwerer als der Gewinn.",
+    dd: "<strong>🧠 Intuition:</strong> Kahneman &amp; Tversky: Verluste schmerzen ca. doppelt so stark wie gleich große Gewinne Freude bereiten (Verlustaversion).<br><br><strong>📌 Klausur-Tipp:</strong> Folge: Status-quo-Bias – Leute behalten was sie haben, auch wenn Wechsel rational vorteilhafter wäre. Verletzung des Coase-Theorems.<br><br><strong>🔗 Verbindung:</strong> Erklärt viele Anomalien: Verlustaktien zu lange halten, Wohnungstausch schwierig, Kündigungsträgheit." },
+
+  { unit: "Unit 7", group: "unit7", diff: "★★",
+    q: "Framing-Effekt – Definition und Beispiel?",
+    a: "<strong>Die Art der Darstellung</strong> beeinflusst Entscheidungen, obwohl der Inhalt identisch ist.<br><br><strong>Klassiker (Tversky/Kahneman):</strong><br>'rettet 90 von 100 Menschenleben'<br>vs.<br>'10 von 100 Menschen sterben'<br><br>Beide Aussagen sind identisch, aber die Reaktion unterschiedlich.<br><br>→ Wird in der <strong>Werbung</strong> gezielt genutzt.",
+    dd: "<strong>🧠 Intuition:</strong> '90% fettfrei' vs. '10% Fett' – identisch, aber unterschiedliche Reaktion. Darstellung beeinflusst Entscheidung, obwohl Inhalt gleich bleibt.<br><br><strong>📌 Klausur-Tipp:</strong> Hauptgrund, warum Werbung wirkt. Auch in Politik: 'Erbschaftssteuer' vs. 'Death Tax' triggert unterschiedliche Emotionen.<br><br><strong>🔗 Verbindung:</strong> Erklärt Werbeausgaben im monopolist. Wettbewerb (U5). Verletzt Invarianzannahme des Homo Economicus." },
+
+  { unit: "Unit 7", group: "unit7", diff: "★★",
+    q: "Ultimatumspiel – was lehrt es uns über Homo Economicus?",
+    a: "<strong>Regeln:</strong> Spieler 1 schlägt Aufteilung von 100€ vor, Spieler 2 akzeptiert (beide bekommen was vereinbart) oder lehnt ab (beide nichts).<br><br><strong>Homo Economicus-Vorhersage:</strong> Spieler 2 akzeptiert JEDEN Betrag &gt; 0.<br><strong>Reale Beobachtung:</strong> Angebote unter 30% werden häufig abgelehnt!<br><br>→ Menschen schätzen <strong>Fairness</strong> und sind bereit, eigene Kosten zu tragen, um unfaires Verhalten zu bestrafen.",
+    dd: "<strong>🧠 Intuition:</strong> Homo Economicus würde 1€ annehmen (positiv ist positiv!). Aber echte Menschen lehnen unfaire Angebote ab – sie zahlen sogar dafür, Ungerechtigkeit zu bestrafen.<br><br><strong>📌 Klausur-Tipp:</strong> Variante Diktatorspiel (Spieler 2 kann nicht ablehnen) → Spieler 1 gibt trotzdem 20-30% ab. Menschen sind intrinsisch fair, nicht nur strategisch.<br><br><strong>🔗 Verbindung:</strong> Erklärt Streiks, Boykotte, Lohnzurückhaltung bei Unfairness. Praxisrelevant für Personalmanagement." },
+];
+
+// ═══════════════════════════════════════════════════════════════════════
+//  SPACED REPETITION LOGIC
+// ═══════════════════════════════════════════════════════════════════════
+let deck = [];
+let currentFilter = "all";
+let stats = { reviewed: 0, correct: 0, streak: 0, maxStreak: 0 };
+let showingAnswer = false;
+let showingDeepDive = false;
+
+const STORAGE_KEY = "me_flashcards_v1";
+
+function saveProgress() {
+  try {
+    const snapshot = {
+      filter: currentFilter,
+      stats: stats,
+      cards: deck.map(c => ({ id: c.id, state: c.state, interval: c.interval, nextShow: c.nextShow }))
+    };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(snapshot));
+  } catch (e) { /* storage full or disabled */ }
+}
+
+function loadProgress() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return null;
+    return JSON.parse(raw);
+  } catch (e) { return null; }
+}
+
+function resetProgress() {
+  if (!confirm("Fortschritt wirklich zurücksetzen?")) return;
+  localStorage.removeItem(STORAGE_KEY);
+  currentFilter = "all";
+  document.querySelectorAll(".mode-btn").forEach(b => {
+    b.classList.toggle("active", b.dataset.filter === "all");
+  });
+  initDeck(true);
+}
+
+function initDeck(forceFresh = false) {
+  const saved = forceFresh ? null : loadProgress();
+  if (saved && saved.filter) currentFilter = saved.filter;
+  const filtered = currentFilter === "all" ? CARDS : CARDS.filter(c => c.group === currentFilter);
+  deck = filtered.map((c, i) => ({ ...c, id: i, state: "new", interval: 0, nextShow: 0 }));
+  if (saved && saved.cards && saved.filter === currentFilter) {
+    const map = new Map(saved.cards.map(c => [c.id, c]));
+    deck.forEach(c => {
+      const s = map.get(c.id);
+      if (s) { c.state = s.state; c.interval = s.interval; c.nextShow = s.nextShow; }
+    });
+    stats = saved.stats || { reviewed: 0, correct: 0, streak: 0, maxStreak: 0 };
+  } else {
+    stats = { reviewed: 0, correct: 0, streak: 0, maxStreak: 0 };
+  }
+  showingAnswer = false;
+  showingDeepDive = false;
+  updateStats();
+  showNextCard();
+  saveProgress();
+}
+
+function pickNext() {
+  const available = deck.filter(c => c.state !== "done").sort((a,b) => a.nextShow - b.nextShow);
+  return available[0] || null;
+}
+
+function updateStats() {
+  const nNew      = deck.filter(c => c.state === "new").length;
+  const nLearning = deck.filter(c => c.state === "learning").length;
+  const nReview   = deck.filter(c => c.state === "review").length;
+  const nDone     = deck.filter(c => c.state === "done").length;
+  document.getElementById("s-new").textContent      = nNew;
+  document.getElementById("s-learning").textContent = nLearning;
+  document.getElementById("s-review").textContent   = nReview;
+  document.getElementById("s-done").textContent     = nDone;
+  document.getElementById("s-streak").textContent   = stats.streak;
+  const pct = deck.length > 0 ? (nDone / deck.length * 100) : 0;
+  document.getElementById("progress-fill").style.width = pct + "%";
+}
+
+function showNextCard() {
+  const card = pickNext();
+  const area = document.getElementById("card-area");
+  if (!card) {
+    area.innerHTML = `
+      <div class="done-screen">
+        <h2>🎉 Geschafft!</h2>
+        <p>Du hast alle ${deck.length} Karten durchgearbeitet.</p>
+        <p>Beste Streak: <strong>${stats.maxStreak}</strong> · Richtig: <strong>${stats.correct}/${stats.reviewed}</strong></p>
+        <button class="restart" onclick="localStorage.removeItem(STORAGE_KEY); initDeck(true)">🔁 Nochmal</button>
+        <button class="restart" onclick="location.reload()">🏠 Start</button>
+      </div>`;
+    return;
+  }
+  showingAnswer = false;
+  showingDeepDive = false;
+  renderCard(card);
+}
+
+function renderCard(card) {
+  const area = document.getElementById("card-area");
+  const ddOpen = showingDeepDive;
+  area.innerHTML = `
+    <div class="card-wrapper">
+      <div class="card" onclick="toggleAnswer()">
+        <div class="card-header">
+          <span class="unit-badge">${card.unit}</span>
+          <span class="difficulty">${card.diff}</span>
+        </div>
+        <div class="card-content">
+          <div class="question">${card.q}</div>
+        </div>
+        <div class="hint">Tippe oder Space zum Umdrehen</div>
+      </div>
+    </div>
+    <button class="btn-deepdive ${ddOpen ? 'open' : ''}" onclick="toggleDeepDive()">
+      ${ddOpen ? '▲ Deep Dive schließen' : '🔍 Deep Dive öffnen'}
+    </button>
+    ${ddOpen ? `<div class="deepdive-panel"><h4>🔬 Tiefergehende Erklärung</h4>${card.dd}</div>` : ''}
+    <button class="flip-btn" onclick="toggleAnswer()">Antwort anzeigen</button>
+  `;
+}
+
+function toggleAnswer() {
+  const card = pickNext();
+  if (!card) return;
+  if (showingAnswer) return;
+  showingAnswer = true;
+  renderAnswer(card);
+}
+
+function renderAnswer(card) {
+  const area = document.getElementById("card-area");
+  const ddOpen = showingDeepDive;
+  area.innerHTML = `
+    <div class="card-wrapper">
+      <div class="card">
+        <div class="card-header">
+          <span class="unit-badge">${card.unit}</span>
+          <span class="difficulty">${card.diff}</span>
+        </div>
+        <div class="card-content">
+          <div class="answer">${card.a}</div>
+        </div>
+        <div class="hint" style="margin-top: 16px; padding-top: 10px; border-top: 2px solid #f1f5f9;">
+          <strong>Frage:</strong> ${card.q}
+        </div>
+      </div>
+    </div>
+    <button class="btn-deepdive ${ddOpen ? 'open' : ''}" onclick="toggleDeepDive()">
+      ${ddOpen ? '▲ Deep Dive schließen' : '🔍 Deep Dive öffnen'}
+    </button>
+    ${ddOpen ? `<div class="deepdive-panel"><h4>🔬 Tiefergehende Erklärung</h4>${card.dd}</div>` : ''}
+    <div class="controls">
+      <button class="btn btn-again" onclick="rate(1)">Nochmal<span class="btn-sub">&lt;1 Min</span></button>
+      <button class="btn btn-hard" onclick="rate(2)">Schwer<span class="btn-sub">3 Karten</span></button>
+      <button class="btn btn-good" onclick="rate(3)">Gut<span class="btn-sub">8 Karten</span></button>
+      <button class="btn btn-easy" onclick="rate(4)">Leicht<span class="btn-sub">Fertig</span></button>
+    </div>
+  `;
+}
+
+function toggleDeepDive() {
+  showingDeepDive = !showingDeepDive;
+  const card = pickNext();
+  if (!card) return;
+  if (showingAnswer) renderAnswer(card);
+  else renderCard(card);
+}
+
+function rate(quality) {
+  const card = pickNext();
+  if (!card) return;
+  stats.reviewed++;
+  const now = stats.reviewed;
+  if (quality === 1) { card.state = "learning"; card.nextShow = now + 1; stats.streak = 0; }
+  else if (quality === 2) { card.state = "learning"; card.nextShow = now + 3; stats.correct++; stats.streak = 0; }
+  else if (quality === 3) { card.state = "review"; card.nextShow = now + 8; stats.correct++; stats.streak++; }
+  else { card.state = "done"; stats.correct++; stats.streak++; }
+  if (stats.streak > stats.maxStreak) stats.maxStreak = stats.streak;
+  updateStats();
+  saveProgress();
+  showNextCard();
+}
+
+document.querySelectorAll(".mode-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".mode-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    currentFilter = btn.dataset.filter;
+    initDeck(true);
+  });
+});
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === " ") { e.preventDefault(); if (!showingAnswer) toggleAnswer(); }
+  else if (e.key === "d" || e.key === "D") { e.preventDefault(); toggleDeepDive(); }
+  else if (showingAnswer) {
+    if (e.key === "1") rate(1);
+    else if (e.key === "2") rate(2);
+    else if (e.key === "3") rate(3);
+    else if (e.key === "4") rate(4);
+  }
+});
+
+initDeck();
+</script>
+</body>
+</html>
